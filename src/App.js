@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 class App extends Component {
+  state = { joke: { setup: '', punchline: '' } };
+
+  componentDidMount() {
+    fetch('https://joke-api-strict-cors.appspot.com/random_joke')
+      .then(response => response.json())
+      .then(json => this.setState({ joke: json }));
+  }
+
   render() {
+    const { setup, punchline } = this.state.joke;
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h2>{setup}</h2>
+        <br />
+        <h3>{punchline}</h3>
       </div>
     );
   }
 }
 
 export default App;
+
+// fetch('https://official-joke-api.appspot.com/random_joke')
